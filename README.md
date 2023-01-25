@@ -1,3 +1,5 @@
+![BuildStatus](https://github.com/shu-z/HW2-BFS/actions/workflows/test.yml/badge.svg)
+
 # Assignment 2
 Breadth-first search
 
