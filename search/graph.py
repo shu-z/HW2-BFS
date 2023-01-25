@@ -30,11 +30,6 @@ class Graph:
         return(path_list[::-1])
 
 
-        
-
-
-
-
 
    
     def bfs(self, start, end=None):
@@ -56,8 +51,14 @@ class Graph:
        
 
         #check that start and end node exists in graph 
+        if start not in G:
+            raise ValueError(f"Start node not in graph!")
 
-
+  
+        if (end not in G) and (end != None):
+            raise ValueError(f"End node not in graph!")
+        
+    
 
         #lists of visted nodes and nodes to visit in queue
         queue=[start]
@@ -91,18 +92,20 @@ class Graph:
         
         if end == None:
             #return list of nodes with order of BFS traversal
-
             return(visited)
 
-
+        #has end node input and has path
         elif nx.has_path(self.graph, start, end):
 
             #turn predecessors dict into list of shortest path 
-            return(self.shortest_path(pred, start, end))   
+            return(self.shortest_path(pred, start, end)) 
 
-        #has end node input but does not have path 
+        #should have existing end node but no path
         else:
             return(None)
+
+
+       
 
 
 

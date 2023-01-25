@@ -67,14 +67,34 @@ def test_bfs():
 
 def test_bfs_edgecase():
 
+    #read in empty graph 
+    G_empty=Graph('./data/empty_graph.adjlist')
 
-    #make instance of empty graph
+    #make sure exception is raised
+    with pytest.raises(ValueError):
+        G_empty.bfs(start=0)
 
-    #make sure 
+
+    G_tiny=Graph('./data/tiny_network.adjlist')
+   
+   
+   #test nonexistent start node 
+
+    with pytest.raises(ValueError):
+        G_tiny.bfs(start='Nonexistent faculty member')
 
 
-    pass 
-#add tests for empty graphs
-#start nodes that don't exist
-#end nodes that don't exist
-#two nodes that aren't connected 
+
+   #test nonexistent end node if end node given
+
+    assert G_tiny.bfs(start='Luke Gilbert', end='Nonexistent faculty') == None, "Incorrect end node does not return None"
+
+
+
+
+ 
+
+
+
+
+
