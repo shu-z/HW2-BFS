@@ -16,19 +16,14 @@ def test_bfs_traversal():
     G_tiny=Graph('./data/tiny_network.adjlist')
     
     #bfs with only start 
-    traversed_G_tiny=(G_tiny.bfs('Lani Wu'))
+    traversed_G_tiny=(G_tiny.bfs('Michael Keiser'))
 
     #check number of nodes traversed
-    assert len(traversed_G_tiny) == 30
+    assert len(traversed_G_tiny) == 30, "Not all nodes traversed"
 
     #check order of nodes traversed
-    assert traversed_G_tiny 
+    assert traversed_G_tiny[0:4]== ['Michael Keiser', '33232663', 'Charles Chiu','Martin Kampmann'], "Nodes traversed in wrong order"
 
-   #check correct number of nodes
-   #check node order ? 
-
-    #assert 
-    
 
 def test_bfs():
     """
@@ -70,24 +65,20 @@ def test_bfs_edgecase():
     #read in empty graph 
     G_empty=Graph('./data/empty_graph.adjlist')
 
-    #make sure exception is raised
+    #make sure exception is raised when given empty graph
     with pytest.raises(ValueError):
         G_empty.bfs(start=0)
 
 
     G_tiny=Graph('./data/tiny_network.adjlist')
-   
-   
+      
    #test nonexistent start node 
-
     with pytest.raises(ValueError):
         G_tiny.bfs(start='Nonexistent faculty member')
 
-
-
-   #test nonexistent end node if end node given
-
-    assert G_tiny.bfs(start='Luke Gilbert', end='Nonexistent faculty') == None, "Incorrect end node does not return None"
+    #test nonexistent end node (when not None)
+    with pytest.raises(ValueError):
+        G_tiny.bfs(start='Luke Gilbert', end='Nonexistent faculty')
 
 
 
