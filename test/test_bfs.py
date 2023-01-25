@@ -13,6 +13,7 @@ def test_bfs_traversal():
     the right number of nodes, in the right order, etc.)
     """
 
+    #make instance of tiny_network graph 
     G_tiny=Graph('./data/tiny_network.adjlist')
     
     #bfs with only start 
@@ -23,6 +24,7 @@ def test_bfs_traversal():
 
     #check order of nodes traversed
     assert traversed_G_tiny[0:4]== ['Michael Keiser', '33232663', 'Charles Chiu','Martin Kampmann'], "Nodes traversed in wrong order"
+
 
 
 def test_bfs():
@@ -37,8 +39,10 @@ def test_bfs():
     which should return None. 
     """
 
+    #make instance of citation network graph
     G_cit=Graph('./data/citation_network.adjlist')
 
+    #pairs of start-end nodes to check
     pair_list=[('Lani Wu', 'Martin Kampmann'), 
             ('Hani Goodarzi', 'Tanja Kortemme'),
             ('Tony Capra', 'Jimmie Ye') ]
@@ -51,7 +55,7 @@ def test_bfs():
         assert  G_cit.bfs(pair[0], pair[1]) in all_shortest, "Shortest path detected incorrect"
     
 
-    #check if nodes unconnected
+    #check if unconnected nodes (but nodes that exist) return None
     assert G_cit.bfs('Hao Li', 'Bruce Conklin') == None, "Unconnected nodes does not return None"
 
 
@@ -61,15 +65,20 @@ def test_bfs():
 
 
 def test_bfs_edgecase():
+    """
+    Additional edge cases to check
+
+    """
 
     #read in empty graph 
     G_empty=Graph('./data/empty_graph.adjlist')
 
     #make sure exception is raised when given empty graph
-    with pytest.raises(ValueError):
+    with pytest.raises(Exception):
         G_empty.bfs(start=0)
 
 
+    #read in tiny graph
     G_tiny=Graph('./data/tiny_network.adjlist')
       
    #test nonexistent start node 

@@ -8,7 +8,8 @@ class Graph:
     """
     def __init__(self, filename: str):
         """
-        Initialization of graph object 
+        Initialization of graph object
+
         """
         self.graph = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";")
 
@@ -19,10 +20,14 @@ class Graph:
         """
         takes in dict of predecessors and finds shortest path
         starts from end node and works backwards to start 
+
+        in predecessor dict: value is predecessor of key
+
         """
         path_list=[end]
         new_end=end
 
+        #value of old key becomes new key
         while new_end != start:
             path_list.append(pred[new_end])
             new_end=pred[new_end]
@@ -31,10 +36,9 @@ class Graph:
 
 
 
-   
     def bfs(self, start, end=None):
         """
-        TODO: write a method that performs a breadth first traversal and pathfinding on graph G
+        Performs breadth first traversal and pathfinding on graph G
         * If there's no end node input, return a list nodes with the order of BFS traversal
         * If there is an end node input and a path exists, return a list of nodes with the order of the shortest path
         * If there is an end node input and a path does not exist, return None
@@ -43,27 +47,23 @@ class Graph:
 
         G=self.graph
 
-         #check that it's not an empty graph
+
+         #check that G is not an empty graph
         if nx.is_empty(G):
-            raise ValueError(f"Graph is empty!")
+            raise Exception(f"Graph is empty!")
 
-        #make sure to handle unconnected graph
-       
-
-        #check that start and end node exists in graph 
+    
+        #check that start and end nodes exists in graph 
         if start not in G:
             raise ValueError(f"Start node not in graph!")
-
-  
+        
         if (end not in G) and (end != None):
             raise ValueError(f"End node not in graph!")
         
     
-
         #lists of visted nodes and nodes to visit in queue
         queue=[start]
         visited=[start]
-        traversed=[start]
 
         #dictionary of predecessors
         pred={}
@@ -71,36 +71,34 @@ class Graph:
 
         #loop through while queue is not empty 
         while queue:
-            #print('current queue: ' + str(queue))
-            #pop first element of queue!!!!
+            #pop first element of queue and get neighbors
             v=queue.pop(0)
-            #print(v)
             N=G.neighbors(v)
-            traversed.append(v)
-            
-            #print(dict(enumerate(N)))
-            
+
+            #check each neighbor of current node
             for w in N:
                 if w not in visited:
-                    #print('current w: ' + str(w))
+                    #add queue node as predecessor to frontier node
                     pred[w] = v
-                    visited.append(w)
+                    #add new frontier nodes to queue and visited
                     queue.append(w)
-                    #print('visted: ' + str(visited))
+                    visited.append(w)
+                    
 
 
-        
+        #values returned depend on end node value
+        #already checked that end node exists in graph
+ 
         if end == None:
             #return list of nodes with order of BFS traversal
             return(visited)
 
         #has end node input and has path
         elif nx.has_path(self.graph, start, end):
-
             #turn predecessors dict into list of shortest path 
             return(self.shortest_path(pred, start, end)) 
 
-        #should have existing end node but no path
+        #has existing end node but no path
         else:
             return(None)
 

@@ -1,7 +1,9 @@
 ![BuildStatus](https://github.com/shu-z/HW2-BFS/actions/workflows/test.yml/badge.svg)
 
 # Assignment 2
-Breadth-first search
+This repo contains functions to run breadth first search (BFS) on a directed NetworkX graph. A Graph object can be created by reading in an adjacency list file (.adjlist). If only a start node is provided, BFS will be run from the given start node, and a list of nodes in order of traversal will be returned. If both a start and end node are provided, a list of nodes from the shortest path between the start and end will be returned. 
+
+More on NetworkX [here](https://networkx.org/).
 
 # Assignment Overview
 The purpose of this assignment is to get you comfortable working with graph structures and to implement a breadth-first search function to traverse the graph and find the shortest path between nodes.
